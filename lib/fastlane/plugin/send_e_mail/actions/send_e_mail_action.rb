@@ -1,12 +1,34 @@
-
+#!/usr/bin/ruby -w
+# -*- coding: UTF-8 -*-
 require 'fastlane/action'
 require_relative '../helper/send_e_mail_helper'
+require 'net/smtp'
 
 module Fastlane
   module Actions
     class SendEMailAction < Action
+      def send_emails(stmpserver, sender_address, password, recipients, subject, message_body)
+        recipients.each do |recipient_address|
+          message_header = ''
+          message_header << "From: <#{sender_address}>\r\n"
+          message_header << "To: <#{recipient_address}>\r\n"
+          message_header << "Subject: #{subject}\r\n"
+          message_header << "Date: " + Time.now.to_s + "\r\n"
+          message = message_header + "\r\n" + message_body + "\r\n"
+          Net::SMTP.start(stmpserver, 25, "localhost", sender_address, password, :plain) do |smtp|
+            # begin
+            smtp.send_message(message, sender_address, recipient_address)
+            # rescue
+            #   raise FileSaveError, $!
+            # end
+          end
+        end
+      end
+
       def self.run(params)
-        UI.message("The send_e_mail plugin is working!")
+        # UI.message("The send_e_mail plugin is working!")
+        puts params[:stmpserver],
+        send_emails(params[:stmpServer], params[:userName], params[:password], params[:recipients], params[:subject], params[:message_body])
       end
 
       def self.description
@@ -30,41 +52,35 @@ module Fastlane
         [
           # stmp servername
           FastlaneCore::ConfigItem.new(key: :stmpServer,
-                                  env_name: "SEND_E_MAIL_YOUR_OPTION",
+                                  env_name: "SEND_E_MAIL_STMP_SERVER",
                                description: "A description of your option",
                                   optional: false,
                                       type: String),
-
           FastlaneCore::ConfigItem.new(key: :userName,
-                                  env_name: "SEND_E_MAIL_YOUR_OPTION",
-                               description: "A description of your option",
+                                  env_name: "SEND_E_MAIL_USERNAME",
+                               description: "A description of USERNAME",
                                   optional: false,
                                       type: String),
-
           FastlaneCore::ConfigItem.new(key: :password,
-                                  env_name: "SEND_E_MAIL_YOUR_OPTION",
+                                  env_name: "SEND_E_MAIL_PASSWORD",
                                description: "A description of your option",
                                   optional: false,
                                       type: String),
-
           FastlaneCore::ConfigItem.new(key: :recipients,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: false,
                                     type: String),
-
           FastlaneCore::ConfigItem.new(key: :subject,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: true,
                                     type: String),
-
           FastlaneCore::ConfigItem.new(key: :message_body,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: true,
                                     type: String),
-          # attachment
           FastlaneCore::ConfigItem.new(key: :attachment,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
@@ -78,6 +94,7 @@ module Fastlane
         # See: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
         #
         # [:ios, :mac, :android].include?(platform)
+        [:ios, :mac].include?(platform)
         true
       end
     end
