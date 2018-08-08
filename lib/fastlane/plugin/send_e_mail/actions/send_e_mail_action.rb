@@ -1,3 +1,4 @@
+
 require 'fastlane/action'
 require_relative '../helper/send_e_mail_helper'
 
@@ -32,45 +33,43 @@ module Fastlane
                                   env_name: "SEND_E_MAIL_YOUR_OPTION",
                                description: "A description of your option",
                                   optional: false,
-                                      type: String)
+                                      type: String),
 
           FastlaneCore::ConfigItem.new(key: :userName,
                                   env_name: "SEND_E_MAIL_YOUR_OPTION",
                                description: "A description of your option",
                                   optional: false,
-                                      type: String)
+                                      type: String),
 
           FastlaneCore::ConfigItem.new(key: :password,
                                   env_name: "SEND_E_MAIL_YOUR_OPTION",
                                description: "A description of your option",
                                   optional: false,
-                                      type: String)
+                                      type: String),
 
           FastlaneCore::ConfigItem.new(key: :recipients,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: false,
-                                    type: String)
+                                    type: String),
 
           FastlaneCore::ConfigItem.new(key: :subject,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: true,
-                                    type: String)
+                                    type: String),
 
           FastlaneCore::ConfigItem.new(key: :message_body,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: true,
-                                    type: String)
-             # 附件Mail attachment
+                                    type: String),
+          # attachment
           FastlaneCore::ConfigItem.new(key: :attachment,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: true,
                                     type: String)
-
-        ]
         ]
       end
 
