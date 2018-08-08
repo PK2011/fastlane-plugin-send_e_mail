@@ -1,4 +1,4 @@
-#!/usr/bin/ruby -w
+
 # -*- coding: UTF-8 -*-
 require 'fastlane/action'
 require_relative '../helper/send_e_mail_helper'
@@ -7,7 +7,7 @@ require 'net/smtp'
 module Fastlane
   module Actions
     class SendEMailAction < Action
-      def send_emails(stmpserver, sender_address, password, recipients, subject, message_body)
+      def self.send_emails(stmpserver, sender_address, password, recipients, subject, message_body)
         recipients.each do |recipient_address|
           message_header = ''
           message_header << "From: <#{sender_address}>\r\n"
@@ -26,9 +26,9 @@ module Fastlane
       end
 
       def self.run(params)
+        @params = params
         # UI.message("The send_e_mail plugin is working!")
-        puts params[:stmpserver],
-        send_emails(params[:stmpServer], params[:userName], params[:password], params[:recipients], params[:subject], params[:message_body])
+        self.send_emails(params[:stmpServer], params[:userName], params[:password], @params[:recipients], params[:subject], params[:message_body])
       end
 
       def self.description
