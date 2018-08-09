@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'fastlane/plugin/send_e_mail/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'send_e_mail'
+  spec.name          = 'fastlane-plugin-send_e_mail'
   spec.version       = Fastlane::SendEMail::VERSION
   spec.author        = 'huangj'
   spec.email         = 'xyhuangjia@gamail.com'
