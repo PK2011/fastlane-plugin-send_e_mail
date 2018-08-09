@@ -30,7 +30,7 @@ module Fastlane
         # @params = params
         # UI.message("The send_e_mail plugin is working!")
         # self.send_emails(params[:stmpServer], params[:userName], params[:password], @params[:recipients], params[:subject], params[:message_body])
-        self.send_emails(params["stmpserver"], params["userName"], params["password"], params["recipients"], params["subject"], params["message_body"])
+        self.send_emails(params["stmp_server"], params["user_name"], params["password"], params["recipients"], params["subject"], params["message_body"])
     end
 
       def self.description
@@ -53,12 +53,12 @@ module Fastlane
       def self.available_options
         [
           # stmp servername
-          FastlaneCore::ConfigItem.new(key: :stmpServer,
+          FastlaneCore::ConfigItem.new(key: :stmp_server,
                                   env_name: "SEND_E_MAIL_STMP_SERVER",
                                description: "A description of your option",
                                   optional: false,
                                       type: String),
-          FastlaneCore::ConfigItem.new(key: :userName,
+          FastlaneCore::ConfigItem.new(key: :user_name,
                                   env_name: "SEND_E_MAIL_USERNAME",
                                description: "A description of USERNAME",
                                   optional: false,
@@ -72,7 +72,7 @@ module Fastlane
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
                                 optional: false,
-                                    type: String),
+                                    type: Array),
           FastlaneCore::ConfigItem.new(key: :subject,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
                              description: "A description of your option",
