@@ -7,7 +7,7 @@ require 'net/smtp'
 module Fastlane
   module Actions
     class SendEMailAction < Action
-      def self.send_emails(stmpserver, sender_address, password, recipients, subject, message_body)
+      def self.send_emails(stmpserver_address, sender_address, password, recipients, subject, message_body)
         recipients.each do |recipient_address|
           message_header = ''
           message_header << "From: <#{sender_address}>\r\n"
@@ -15,7 +15,7 @@ module Fastlane
           message_header << "Subject: #{subject}\r\n"
           message_header << "Date: " + Time.now.to_s + "\r\n"
           message = message_header + "\r\n" + message_body + "\r\n"
-          Net::SMTP.start(stmpserver, 25, "localhost", sender_address, password, :plain) do |smtp|
+          Net::SMTP.start(stmpserver_address, 25, "localhost", sender_address, password, :plain) do |smtp|
             # begin
             smtp.send_message(message, sender_address, recipient_address)
             # rescue
