@@ -1,16 +1,15 @@
-
 describe Fastlane::Actions::SendEMailAction do
   let(:action) { Fastlane::Actions::SendEMailAction }
   describe '#send_e_mail' do
-    params = { "stmpserver" => "smtp.yeah.net", "userName" => "xyhuangjia@yeah.net", "password" => "password", "recipients" => ["2587171762@qq.com", "2587171762@qq.com"], "subject" => "test", "message_body" => "text" }
+      params = { "stmpserver" => "smtp.yeah.net", "userName" => "xyhuangjia@yeah.net", "password" => "HJ123456", "recipients" => ["2587171762@qq.com", "2587171762@qq.com"], "subject" => "测试标题", "message_body" => "测试文本" }
     it 'send_e_mail_text' do
-      @params = params
-      puts(params)
-      puts("#{params["recipients"]}")
-      puts params["recipients"]
-      puts params[:recipients]
-      # action.run(params)
-      # action.send_emails(params);
+        # puts(params)
+        # # puts params["stmpserver"]
+        # puts("#{params["recipients"]}")
+        # puts  params["recipients"]
+        puts  params[:recipients]
+        action.run(params)
+        # action.send_emails("smtp.yeah.net", "xyhuangjia@yeah.net", )
     end
   end
 end
