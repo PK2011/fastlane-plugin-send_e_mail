@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-send_e_mail'
   spec.version       = Fastlane::SendEMail::VERSION
   spec.author        = 'huangj'
-  spec.email         = 'huangj@ywsoftware.com'
+  spec.email         = 'xyhuangjia@gamail.com'
 
   spec.summary       = 'a tool to sendmail'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-send_e_mail"
+  spec.homepage      = "https://github.com/xyhuangjia/fastlane-plugin-send_e_mail"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
