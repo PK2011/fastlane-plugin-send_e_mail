@@ -27,10 +27,13 @@ module Fastlane
       end
 
       def self.run(params)
-        # @params = params
-        # UI.message("The send_e_mail plugin is working!")
-        # self.send_emails(params[:stmpServer], params[:userName], params[:password], @params[:recipients], params[:subject], params[:message_body])
-        self.send_emails(params[:stmp_server], params[:user_name], params[:password], params[:recipients], params[:subject], params[:message_body])
+        self.send_emails(
+          params[:stmp_server], 
+          params[:user_name], 
+          params[:password], 
+          params[:recipients], 
+          params[:subject], 
+          params[:message_body])
     end
 
       def self.description
