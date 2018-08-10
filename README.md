@@ -12,7 +12,7 @@ fastlane add_plugin send_e_mail
 
 ## About send_e_mail
 
-a tool to sendmail by stmp
+just a tool to sendmail by stmp
 
 **Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
 

@@ -7,7 +7,7 @@ require 'net/smtp'
 module Fastlane
   module Actions
     class SendEMailAction < Action
-      def self.send_emails(stmpserver_address, sender_address, password, recipients, subject, message_body)
+      def self.send_emails(stmpserver_address, sender_address, password, recipients, subject, message_body, attachment, target)
         recipients.each do |recipient_address|
           message_header = ''
           message_header << "From: <#{sender_address}>\r\n"
@@ -16,11 +16,12 @@ module Fastlane
           message_header << "Date: " + Time.now.to_s + "\r\n"
           message = message_header + "\r\n" + message_body + "\r\n"
           Net::SMTP.start(stmpserver_address, 25, "localhost", sender_address, password, :plain) do |smtp|
-            # begin
-            smtp.send_message(message, sender_address, recipient_address)
-            # rescue
-            #   raise FileSaveError, $!
-            # end
+            begin
+              smtp.send_message(message, sender_address, recipient_address)
+            rescue
+              raise Exception => e
+              print "Exception occured: " + e 
+            end
           end
           
         end
@@ -33,7 +34,9 @@ module Fastlane
           params[:password], 
           params[:recipients], 
           params[:subject], 
-          params[:message_body])
+          params[:message_body],
+          params[:attachment],
+          params[:target])
     end
 
       def self.description
@@ -87,6 +90,11 @@ module Fastlane
                                 optional: true,
                                     type: String),
           FastlaneCore::ConfigItem.new(key: :attachment,
+                                env_name: "SEND_E_MAIL_attachment",
+                             description: "A description of attachment",
+                                optional: true,
+                                    type: String),
+          FastlaneCore::ConfigItem.new(key: :target,
                                 env_name: "SEND_E_MAIL_attachment",
                              description: "A description of attachment",
                                 optional: true,
