@@ -14,8 +14,10 @@ module Fastlane
           message_header << "To: <#{recipient_address}>\r\n"
           message_header << "Subject: #{subject}\r\n"
           message_header << "Date: " + Time.now.to_s + "\r\n"
-          message = message_header + "\r\n" + message_body + "\r\n"
-          Net::SMTP.start(stmpserver_address, 25, "localhost", sender_address, password, :plain) do |smtp|
+          message_header << "MIME-Version: 1.0" + "\r\n"
+          message_header << "Content-type: text/html;charset=utf-8" + "\r\n"
+          message = message_header + "\r\n" + message_body.encode('utf-8') + "\r\n"
+          Net::SMTP.start(stmpserver_address, 25, "yeah.net", sender_address, password, :plain) do |smtp|
             begin
               smtp.send_message(message, sender_address, recipient_address)
             rescue
