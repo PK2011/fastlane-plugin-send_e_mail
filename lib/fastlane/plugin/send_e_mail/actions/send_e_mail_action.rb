@@ -16,6 +16,7 @@ module Fastlane
           message_header << "Date: " + Time.now.to_s + "\r\n"
           message_header << "MIME-Version: 1.0" + "\r\n"
           message_header << "Content-type: text/html;charset=utf-8" + "\r\n"
+          message_header << "X-Priority:3;X-MSMail-Priority:Normal;X-Mailer:Microsoft Outlook Express 6.00.2900.2869;X-MimeOLE:Produced By Microsoft MimeOLE V6.00.2900.2869;ReturnReceipt:1" + "\r\n"   
           message = message_header + "\r\n" + message_body.encode('utf-8') + "\r\n"
           Net::SMTP.start(stmpserver_address, 25, "yeah.net", sender_address, password, :plain) do |smtp|
             begin
@@ -37,9 +38,10 @@ module Fastlane
           params[:recipients], 
           params[:subject], 
           params[:message_body],
-          params[:attachment],
-          params[:target])
-    end
+          # params[:attachment],
+          # params[:target]
+          )
+      end
 
       def self.description
         "a tool to sendmail"
@@ -63,44 +65,44 @@ module Fastlane
           # stmp servername
           FastlaneCore::ConfigItem.new(key: :stmp_server,
                                   env_name: "SEND_E_MAIL_STMP_SERVER",
-                               description: "servername",
+                                description: "servername",
                                   optional: false,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :user_name,
                                   env_name: "SEND_E_MAIL_USERNAME",
-                               description: "USERNAME",
+                                description: "USERNAME",
                                   optional: false,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :password,
                                   env_name: "SEND_E_MAIL_PASSWORD",
-                               description: "password",
+                                description: "password",
                                   optional: false,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :recipients,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
-                             description: "recipients",
+                              description: "recipients",
                                 optional: false,
                                     type: Array),
           FastlaneCore::ConfigItem.new(key: :subject,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
-                             description: "subject",
+                              description: "subject",
                                 optional: true,
                                     type: String),
           FastlaneCore::ConfigItem.new(key: :message_body,
                                 env_name: "SEND_E_MAIL_YOUR_OPTION",
-                             description: "message_body",
+                              description: "message_body",
                                 optional: true,
                                     type: String),
-          FastlaneCore::ConfigItem.new(key: :attachment,
-                                env_name: "SEND_E_MAIL_attachment",
-                             description: "A description of attachment",
-                                optional: true,
-                                    type: String),
-          FastlaneCore::ConfigItem.new(key: :target,
-                                env_name: "SEND_E_MAIL_attachment",
-                             description: "A description of attachment",
-                                optional: true,
-                                    type: String)
+          # FastlaneCore::ConfigItem.new(key: :attachment,
+          #                       env_name: "SEND_E_MAIL_attachment",
+          #                     description: "A description of attachment",
+          #                       optional: true,
+          #                           type: String),
+          # FastlaneCore::ConfigItem.new(key: :target,
+          #                       env_name: "SEND_E_MAIL_attachment",
+          #                     description: "A description of attachment",
+          #                       optional: true,
+          #                           type: String)
         ]
       end
 
