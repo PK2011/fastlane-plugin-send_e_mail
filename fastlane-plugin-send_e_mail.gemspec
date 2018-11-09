@@ -1,6 +1,6 @@
 # coding: utf-8
 
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'fastlane/plugin/send_e_mail/version'
 
@@ -11,10 +11,10 @@ Gem::Specification.new do |spec|
   spec.email         = 'xyhuangjia@gamail.com'
 
   spec.summary       = 'a tool to sendmail'
-  spec.homepage      = "https://github.com/xyhuangjia/fastlane-plugin-send_e_mail"
-  spec.license       = "MIT"
+  spec.homepage      = 'https://github.com/xyhuangjia/fastlane-plugin-send_e_mail'
+  spec.license       = 'MIT'
 
-  spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
+  spec.files         = Dir['lib/**/*'] + %w[README.md LICENSE]
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 

@@ -1,7 +1,7 @@
 require 'fastlane_core/ui/ui'
 
 module Fastlane
-  UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
+  UI = FastlaneCore::UI unless Fastlane.const_defined?('UI')
 
   module Helper
     class SendEMailHelper
@@ -9,7 +9,7 @@ module Fastlane
       # as `Helper::SendEMailHelper.your_method`
       #
       def self.show_message
-        UI.message("Hello from the send_e_mail plugin helper!")
+        UI.message('Hello from the send_e_mail plugin helper!')
       end
     end
   end
