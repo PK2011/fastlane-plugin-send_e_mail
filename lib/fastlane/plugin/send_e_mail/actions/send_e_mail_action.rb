@@ -5,7 +5,7 @@ require 'net/smtp'
 module Fastlane
   module Actions
     class SendEMailAction < Action
-      def self.send_emails(stmpserver_address,sender_address,password,recipients,subject,message_body)
+      def self.send_emails(stmpserver_address,port,domain,sender_address,password,recipients,subject,message_body)
         recipients.each do |recipient_address|
           message_header = ''
           message_header << "From: <#{sender_address}>\r\n"
@@ -16,7 +16,7 @@ module Fastlane
           message_header << 'Content-type: text/html;charset=utf-8' + "\r\n"
           message_header << 'X-Priority:3;X-MSMail-Priority:Normal;X-Mailer:Microsoft Outlook Express 6.00.2900.2869;X-MimeOLE:Produced By Microsoft MimeOLE V6.00.2900.2869;ReturnReceipt:1' + "\r\n"
           message = message_header + "\r\n" + message_body.encode('utf-8') + "\r\n"
-          Net::SMTP.start(stmpserver_address, 25, 'yeah.net', sender_address, password, :plain) do |smtp|
+          Net::SMTP.start(stmpserver_address, port, domain, sender_address, password, :plain) do |smtp|
             begin
               smtp.send_message(message, sender_address, recipient_address)
             rescue
@@ -30,6 +30,8 @@ module Fastlane
       def self.run(params)
         send_emails(
           params[:stmp_server],
+          params[:port],
+          params[:domain],
           params[:user_name],
           params[:password],
           params[:recipients],
@@ -61,6 +63,16 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :stmp_server,
                                        env_name: 'SEND_E_MAIL_SERVER',
                                        description: 'servername',
+                                       optional: false,
+                                       type: String),
+          FastlaneCore::ConfigItem.new(key: :port,
+                                       env_name: 'SEND_E_MAIL_SERVER_PORT',
+                                       description: 'portname',
+                                       optional: false,
+                                       type: String),
+          FastlaneCore::ConfigItem.new(key: :port,
+                                       env_name: 'SEND_E_MAIL_SERVER_DOMAIN',
+                                       description: 'domainname',
                                        optional: false,
                                        type: String),
           FastlaneCore::ConfigItem.new(key: :user_name,
